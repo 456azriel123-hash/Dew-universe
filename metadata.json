@@ -1,0 +1,8 @@
+{
+  "name": "Remix: My Aesthetic Universe",
+  "description": "Sebuah galeri digital personal interaktif 3D buatan tangan dengan latar luar angkasa nebula, ribuan bintang berkilau, bola energi yang berputar lembut, dan lagu latar synthesizer ambient prosedural real-time.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

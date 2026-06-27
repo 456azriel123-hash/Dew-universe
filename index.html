@@ -1,0 +1,1192 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Aesthetic Universe - 10 Mini Cards Edition 🪐</title>
+  
+  <!-- Premium Fonts: Playfair Display (Classic Serif), Dancing Script (Romantic Cursive), Cinzel & Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Dancing+Script:wght@400;600;700&family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind CSS Play CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- Three.js (r128) & OrbitControls Standard CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      overflow: hidden;
+      user-select: none;
+      background-color: #05030f;
+    }
+    h1, h2, h3, .font-title {
+      font-family: 'Playfair Display', serif;
+    }
+    .font-cursive {
+      font-family: 'Dancing Script', cursive;
+    }
+    .font-serif {
+      font-family: 'Playfair Display', serif;
+    }
+    .font-cinzel {
+      font-family: 'Cinzel', serif;
+    }
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+    .glassmorphism {
+      background: rgba(14, 10, 31, 0.45);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .neon-text-pink {
+      text-shadow: 0 0 6px rgba(244, 143, 177, 0.6), 0 0 15px rgba(244, 143, 177, 0.25);
+    }
+    .neon-glow-pink {
+      box-shadow: 0 0 25px rgba(236, 72, 153, 0.35);
+    }
+    .neon-glow-purple {
+      box-shadow: 0 0 25px rgba(168, 85, 247, 0.35);
+    }
+  </style>
+</head>
+<body class="relative w-screen h-screen">
+
+  <!-- Deep cosmic starry nebula ambient flow background -->
+  <div id="nebula-bg" class="absolute inset-0 transition-all duration-[3000ms] ease-in-out pointer-events-none z-0"
+       style="background: radial-gradient(circle at 35% 35%, rgba(147, 51, 234, 0.16) 0%, transparent 55%), radial-gradient(circle at 75% 75%, rgba(236, 72, 153, 0.11) 0%, transparent 60%), #05030f;">
+  </div>
+
+  <!-- 3D Canvas Container -->
+  <div id="canvas-container" class="absolute inset-0 w-full h-full z-10 cursor-grab active:cursor-grabbing"></div>
+
+
+  <!-- Floating Branded Header (Top Left corner) -->
+  <div class="absolute top-6 left-6 z-20 pointer-events-auto flex flex-col gap-1 select-none">
+    <div class="flex items-center gap-1.5 text-white/40 text-[9px] tracking-[0.3em] uppercase">
+      <i data-lucide="orbit" class="w-3.5 h-3.5 text-pink-400 rotate-12"></i>
+      <span>Cosmic Archive v2.0 - 10 Mini Cards</span>
+    </div>
+    <h1 class="text-white text-lg md:text-xl font-bold tracking-tight bg-gradient-to-r from-white via-purple-200 to-pink-300 bg-clip-text text-transparent">
+      My Aesthetic Universe
+    </h1>
+  </div>
+
+  <!-- Premium Customizable Top Banner Screen Header once unlocked -->
+  <div id="center-title-container" class="absolute top-24 left-1/2 -translate-x-1/2 z-20 pointer-events-none text-center select-none hidden w-full max-w-[90vw] px-4">
+    <div id="center-title" class="text-white font-cursive font-bold text-3xl sm:text-4xl md:text-5xl tracking-wide neon-text-pink transition-all duration-500">
+      My Pretty Dewinda Nurdiana Sarif ❤
+    </div>
+  </div>
+
+  <!-- Upper Right Panel: Fullscreen Toggle Only (Minimalist) -->
+  <div class="absolute top-6 right-6 z-20 pointer-events-auto flex items-center gap-2 select-none">
+    <!-- Fullscreen Toggle Button -->
+    <button id="toggle-fullscreen-btn" class="w-10 h-10 rounded-full glassmorphism hover:bg-white/10 flex items-center justify-center text-white cursor-pointer transition-all transform hover:scale-105 active:scale-95 border border-white/10 shadow-lg" title="Toggle Fullscreen">
+      <i data-lucide="maximize" class="w-4 h-4 text-pink-300" id="fullscreen-icon"></i>
+    </button>
+  </div>
+
+  <!-- Bottom Navigation guidelines indicator -->
+  <div class="absolute bottom-6 left-1/2 -translate-x-1/2 z-20 pointer-events-none hidden sm:block">
+    <div id="controls-help" class="glassmorphism px-5 py-2.5 rounded-full flex items-center gap-4 text-[11px] text-white/50 shadow-md">
+      <span class="flex items-center gap-1.5"><i data-lucide="move" class="w-3.5 h-3.5 text-pink-400"></i> Seret untuk Memutar Kamera</span>
+      <span class="w-1 h-1 rounded-full bg-white/25"></span>
+      <span class="flex items-center gap-1.5"><i data-lucide="zoom-in" class="w-3.5 h-3.5 text-purple-400"></i> Scroll mouse untuk Zoom</span>
+      <span class="w-1 h-1 rounded-full bg-white/25"></span>
+      <span class="flex items-center gap-1.5"><i data-lucide="sparkles" class="w-3.5 h-3.5 text-yellow-300 animate-pulse"></i> Klik Kartu untuk Detail</span>
+    </div>
+  </div>
+
+  <!-- 1. Space Welcome Screen gate overlay (Tampilan Awal) -->
+  <div id="welcome-screen" class="absolute inset-0 z-50 bg-[#04030a] flex items-center justify-center p-4 transition-all duration-1000 ease-in-out opacity-100" style="background-image: radial-gradient(circle at 50% 50%, rgba(147, 51, 234, 0.22) 0%, rgba(236, 72, 153, 0.08) 40%, #04030a 100%);">
+    <div class="max-w-md w-full glassmorphism rounded-3xl p-8 border border-white/10 flex flex-col items-center text-center space-y-6 shadow-[0_0_50px_rgba(168,85,247,0.15)]">
+      <div class="relative w-24 h-24 flex items-center justify-center">
+        <span class="absolute inset-0 rounded-full border border-dashed border-pink-500/30 animate-spin" style="animation-duration: 20s;"></span>
+        <span class="absolute w-16 h-16 rounded-full bg-gradient-to-tr from-purple-600/30 to-pink-500/20 blur-md"></span>
+        <span class="text-4xl relative z-10 animate-bounce" style="animation-duration: 3s;">🪐</span>
+      </div>
+
+      <div class="space-y-2">
+        <h2 class="text-2xl md:text-3xl font-bold text-white bg-gradient-to-r from-white via-purple-100 to-pink-200 bg-clip-text text-transparent tracking-tight">
+          Welcome to My Universe ✨
+        </h2>
+        <p class="text-xs md:text-sm text-white/60 font-light leading-relaxed">
+          Buka ruang estetika personal lo yang dipenuhi ribuan bintang benderang, lirik puitis, dan 10 slot foto mini yang bisa lo atur sendiri sesuai keinginan lo.
+        </p>
+      </div>
+
+      <button class="w-full py-3.5 px-6 rounded-2xl bg-gradient-to-r from-purple-500 via-pink-500 to-amber-400 text-white font-bold flex items-center justify-center gap-2 cursor-pointer shadow-[0_0_20px_rgba(236,72,153,0.3)] hover:shadow-[0_0_20px_rgba(236,72,153,0.5)] transition-all transform hover:scale-[1.02] active:scale-95" onclick="enterWorld()">
+        Enter My World 🪐
+      </button>
+
+      <span class="text-[9px] text-white/30 tracking-widest uppercase">
+        Click to initialize magical soundscape
+      </span>
+    </div>
+  </div>
+
+  <!-- 2. Interactive Love Question Gateway screen selector overlay -->
+  <div id="question-screen" class="absolute inset-0 z-50 bg-[#04030a] flex items-center justify-center p-4 transition-all duration-700 ease-in-out opacity-100 hidden" style="background-image: radial-gradient(circle at 50% 50%, rgba(147, 51, 234, 0.18) 0%, rgba(236, 72, 153, 0.05) 50%, #030207 100%);">
+    <div class="max-w-md w-full glassmorphism rounded-3xl p-8 border border-white/10 flex flex-col items-center text-center space-y-6 shadow-[0_0_40px_rgba(168,85,247,0.2)]">
+      <span class="text-purple-400 text-[10px] tracking-[0.25em] font-bold uppercase block">- COSMIC QUERY -</span>
+      <h2 class="text-xl md:text-2xl font-bold text-white leading-tight">Do you want to see my favorite person?</h2>
+      
+      <div class="flex gap-4 w-full justify-center">
+        <button class="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white font-bold px-6 py-3 rounded-xl cursor-pointer transition-all transform hover:scale-105 shadow-[0_0_15px_rgba(168,85,247,0.4)]" onclick="showUniverse()">
+          Of course 😍
+        </button>
+        <button class="bg-red-500/10 hover:bg-red-500/25 text-red-400 hover:text-red-300 font-semibold px-6 py-3 rounded-xl cursor-pointer transition-all" onclick="alert('Yahhh, kok gamau sih? Pilih Of course dong biar kebuka semestanya! 🥺')">
+          No way 🤨
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. Space Customizer triggers (Bottom Left trigger button) -->
+  <div id="customizer-toggle" class="absolute bottom-6 left-6 z-20 pointer-events-auto hidden">
+    <button class="glassmorphism hover:bg-white/10 border border-white/10 hover:border-purple-500/30 w-12 h-12 rounded-full flex items-center justify-center text-white cursor-pointer shadow-lg transition-all transform hover:scale-105 active:scale-95 group" onclick="toggleCustomizer(true)">
+      <i data-lucide="palette" class="w-5 h-5 group-hover:rotate-12 transition-all text-pink-300"></i>
+    </button>
+  </div>
+
+  <!-- 4. Customizer Sidebar drawer modal panel map -->
+  <div id="customizer-panel" class="absolute top-24 left-6 bottom-24 w-80 z-30 glassmorphism rounded-3xl p-5 flex flex-col space-y-4 shadow-2xl transition-all duration-300 transform scale-95 translate-x-[-110%] opacity-0 pointer-events-none border border-white/15">
+    <div class="flex justify-between items-center border-b border-white/5 pb-2 flex-shrink-0">
+      <h2 class="text-white font-bold flex items-center gap-2 text-sm uppercase tracking-wider">
+        <i data-lucide="sliders-horizontal" class="w-4 h-4 text-purple-400 animate-pulse"></i> Customizer Map
+      </h2>
+      <button class="w-7 h-7 rounded-full hover:bg-white/10 flex items-center justify-center text-white/50 hover:text-white cursor-pointer transition-all" onclick="toggleCustomizer(false)">
+        <i data-lucide="x" class="w-4 h-4"></i>
+      </button>
+    </div>
+
+    <!-- Active form elements container -->
+    <div class="flex-1 overflow-y-auto no-scrollbar space-y-4 pr-1 text-white">
+      
+      <!-- upper title customization banner -->
+      <div class="space-y-1">
+        <label class="text-[9px] uppercase tracking-wider text-purple-300 font-bold block">Ubah Nama Banner Atas:</label>
+        <input type="text" id="banner-text-input" value="My Pretty Dewinda Nurdiana Sarif ❤" class="w-full bg-black/45 border border-white/10 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-purple-500/50 transition-all">
+      </div>
+
+      <!-- Center energy orb theme color picker control -->
+      <div class="space-y-1">
+        <label class="text-[9px] uppercase tracking-wider text-pink-300 font-bold block">Warna Tema Bola Energi:</label>
+        <div class="flex items-center gap-3 bg-black/30 p-2 border border-white/5 rounded-xl">
+          <input type="color" id="theme-color-input" value="#9333ea" class="bg-transparent border-0 outline-none w-10 h-8 cursor-pointer rounded-lg">
+          <span class="text-[11px] text-white/50">Pilih warna pusat energi</span>
+        </div>
+      </div>
+
+      <!-- Music Player control -->
+      <div class="space-y-1 mt-2">
+        <label class="text-[9px] uppercase tracking-wider text-blue-300 font-bold block">PILIH MUSIK LATAR:</label>
+        <select id="bgm-selector" onchange="changeMusic()" class="w-full bg-black/55 border border-white/10 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-blue-500/50 transition-all focus:ring-1 focus:ring-blue-500/40">
+          <option value="bad.mp3">bad.mp3</option>
+          <option value="somebody's pleasure.m4a">somebody's pleasure.m4a</option>
+          <option value="beautiful.mp3">beautiful.mp3</option>
+          <option value="talking to the moon.mp3">talking to the moon.mp3</option>
+          <option value="one in a million.mp3">one in a million.mp3</option>
+          <option value="shape of my heart.mp3">shape of my heart.mp3</option>
+          <option value="risk it all.mp3">risk it all.mp3</option>
+        </select>
+        <div class="flex gap-2 mt-2">
+          <button onclick="playMusic()" class="flex-1 py-1.5 bg-gradient-to-r from-blue-500 to-purple-500 rounded-lg text-xs font-bold flex items-center justify-center gap-1 shadow-[0_0_10px_rgba(59,130,246,0.3)] hover:shadow-[0_0_15px_rgba(59,130,246,0.5)] transition-all transform hover:scale-[1.02] active:scale-95"><i data-lucide="play" class="w-3 h-3"></i> Play</button>
+          <button onclick="pauseMusic()" class="flex-1 py-1.5 bg-white/10 border border-white/10 rounded-lg text-xs font-bold flex items-center justify-center gap-1 hover:bg-white/20 transition-all transform hover:scale-[1.02] active:scale-95"><i data-lucide="pause" class="w-3 h-3"></i> Pause</button>
+        </div>
+      </div>
+
+      <div class="border-t border-white/10 my-3"></div>
+
+      <!-- Individual selectable 10-deck slots customizers -->
+      <div class="space-y-1">
+        <label class="text-[9px] uppercase tracking-wider text-purple-300 font-bold block">Pilih Slot Kartu Foto (Ada 10):</label>
+        <select id="card-selector" onchange="updateSelectedCardFields()" class="w-full bg-black/55 border border-white/10 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-purple-500/50 transition-all focus:ring-1 focus:ring-purple-500/40">
+          <option value="0">Kartu Foto 1</option>
+          <option value="1">Kartu Foto 2</option>
+          <option value="2">Kartu Foto 3</option>
+          <option value="3">Kartu Foto 4</option>
+          <option value="4">Kartu Foto 5</option>
+          <option value="5">Kartu Foto 6</option>
+          <option value="6">Kartu Foto 7</option>
+          <option value="7">Kartu Foto 8</option>
+          <option value="8">Kartu Foto 9</option>
+          <option value="9">Kartu Foto 10</option>
+        </select>
+      </div>
+
+      <div class="bg-black/25 p-3.5 border border-white/5 rounded-2xl space-y-3">
+        <div class="space-y-1">
+          <label class="text-[9px] text-white/40 block">Judul Foto Slot:</label>
+          <input type="text" id="card-title-input" class="w-full bg-black/40 border border-white/10 rounded-lg px-2.5 py-1.5 text-xs text-white focus:outline-none focus:border-pink-500/50">
+        </div>
+
+        <!-- Local photo attachment device uploads -->
+        <div class="space-y-1">
+          <label id="upload-label" class="text-[9px] uppercase tracking-wider text-pink-300 font-bold block">Pilih Foto dari HP / Laptop Lo:</label>
+          <div class="relative overflow-hidden inline-block w-full">
+            <label for="card-file-input" class="border border-dashed border-purple-500/40 text-purple-300 bg-purple-500/10 hover:bg-purple-500/20 py-2 rounded-xl w-full text-center text-xs font-semibold cursor-pointer block transition-all">
+              📁 Ambil Foto dari Galeri HP/PC
+            </label>
+            <input type="file" id="card-file-input" accept="image/*" class="absolute left-0 top-0 opacity-0 cursor-pointer pointer-events-none" style="font-size: 100px;" onchange="handleFileSelect(event)">
+          </div>
+          <span id="file-name-display" class="text-[10px] text-purple-300 font-semibold italic text-center block leading-tight">Belum ada foto dipilih</span>
+        </div>
+
+        <div class="space-y-1">
+          <label class="text-[9px] text-white/40 block">Poetic Description:</label>
+          <textarea id="card-desc" rows="3" class="w-full bg-black/40 border border-white/10 rounded-lg px-2.5 py-1.5 text-xs text-white focus:outline-none focus:border-pink-500/50 resize-none">Saat debu kosmik berhimpun di jagat raya, melahirkan sinar bintang muda.</textarea>
+        </div>
+
+        <div class="space-y-1">
+          <label class="text-[9px] text-white/40 block">Quote Indah:</label>
+          <input type="text" id="card-quote-input" value="Kita semua hanyalah debu bintang yang mencari arah pulang." class="w-full bg-black/40 border border-white/10 rounded-lg px-2.5 py-1.5 text-xs text-white focus:outline-none focus:border-pink-500/50">
+        </div>
+      </div>
+
+      <button class="w-full bg-purple-500 hover:bg-purple-600 text-white rounded-xl py-3.5 text-xs font-bold cursor-pointer transition-all shadow-[0_0_15px_rgba(168,85,247,0.3)] hover:scale-[1.02] active:scale-95" onclick="applyUpdates()">
+        Apply All Updates 🪄
+      </button>
+    </div>
+  </div>
+
+  <!-- Interactive 3D Photo Details Modal Overlay Dialog (Instantly focused on click) -->
+  <div id="photo-detail-modal" class="absolute inset-0 z-40 bg-black/85 backdrop-blur-xl flex items-center justify-center p-4 opacity-0 pointer-events-none transition-all duration-500 select-none">
+    <!-- Click backdrop to exit easily -->
+    <div class="absolute inset-0 cursor-zoom-out" id="modal-backdrop" onclick="closeDetailModal()"></div>
+    
+    <div class="relative glassmorphism max-w-4xl w-full rounded-3xl border border-white/10 overflow-hidden shadow-2xl flex flex-col md:flex-row z-50 transform scale-95 transition-all duration-500 max-h-[85vh]">
+      <!-- Frame graphic preview panel -->
+      <div class="w-full md:w-1/2 relative bg-black/40 flex items-center justify-center min-h-[200px] md:h-auto overflow-hidden">
+        <img id="modal-img" src="" alt="Gallery Artwork" class="w-full h-full object-cover transition-transform duration-[2000ms] hover:scale-105" referrerPolicy="no-referrer">
+        <!-- Temporary dynamic element rendering drawn canvas inside modal if no image is available -->
+        <div id="modal-canvas-fallback-container" class="absolute inset-0 flex items-center justify-center bg-gradient-to-tr from-purple-950/40 via-purple-900/20 to-pink-950/40 hidden">
+          <canvas id="modal-drawn-canvas" class="w-full h-full object-contain"></canvas>
+        </div>
+        <span class="absolute top-4 left-4 bg-black/60 backdrop-blur-md border border-white/10 text-white/70 text-[9px] tracking-widest uppercase py-1 px-3 rounded-full font-bold">
+          Aesthetic Memory Card
+        </span>
+      </div>
+
+      <!-- Meta text details descriptors -->
+      <div class="w-full md:w-1/2 p-6 md:p-8 flex flex-col justify-between space-y-6">
+        <button class="absolute top-4 right-4 w-9 h-9 rounded-full bg-white/5 hover:bg-white/15 text-white/50 hover:text-white flex items-center justify-center transition-all cursor-pointer" onclick="closeDetailModal()">
+          <i data-lucide="x" class="w-4 h-4"></i>
+        </button>
+
+        <div class="space-y-4">
+          <div class="flex items-center gap-1.5 text-[9px] text-pink-400 font-bold tracking-widest uppercase">
+            <span class="w-1.5 h-1.5 rounded-full bg-pink-500 animate-pulse"></span>
+            <span>COSMIC REVELATION</span>
+          </div>
+          <h2 id="modal-title" class="text-xl md:text-2xl font-bold text-white tracking-tight leading-none">Celestial Portal</h2>
+          <p id="modal-desc" class="text-xs sm:text-sm text-white/75 font-light leading-relaxed">
+            Beautiful descriptive text loaded dynamically from your aesthetic space database.
+          </p>
+        </div>
+
+        <!-- Poetic quote block snippet -->
+        <div class="bg-purple-950/30 border-l-2 border-pink-500 p-4 rounded-r-xl">
+          <p class="text-[8px] uppercase tracking-widest text-pink-300 font-bold mb-1">Aesthetic Quote</p>
+          <q id="modal-quote" class="text-xs italic text-purple-100 font-medium leading-relaxed block">
+            "We are all looking for the light inside each other's spaces."
+          </q>
+        </div>
+
+        <div class="flex justify-between items-center text-[9px] text-white/40 pt-4 border-t border-white/5">
+          <span>PICTURE ID: SLOT #<span id="modal-id">1</span></span>
+          <button class="bg-white/10 hover:bg-white text-white/90 hover:text-black transition-all rounded-full py-2 px-5 font-semibold text-[10px] cursor-pointer" onclick="closeDetailModal()">
+            Return to Space
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Notification Toast message feedback element -->
+  <div id="intro-toast" class="absolute bottom-10 left-1/2 -translate-x-1/2 z-30 bg-purple-950/85 backdrop-blur-md border border-purple-500/30 py-2.5 px-5 rounded-full flex items-center gap-2.5 text-xs text-white opacity-0 transition-all duration-700 pointer-events-none transform translate-y-3">
+    <div class="w-1.5 h-1.5 rounded-full bg-pink-400 animate-pulse"></div>
+    <span id="toast-text">Selamat datang di semesta estetis... ✨</span>
+  </div>
+
+  <!-- Standard globally reliable script for easy function scoping -->
+  <script>
+    // -------------------------------------------------------------
+    // PROCEDURAL COSMIC BACKGROUND SYNTH (Disabled - Completely Silent)
+    // -------------------------------------------------------------
+    class ProceduralSpaceSynth {
+      constructor() {}
+      init() {}
+      start() {}
+      stop() {}
+      setVolume(val) {}
+      setExternalURL(url) {}
+      playTwinkle() {}
+    }
+
+    const spaceSynth = new ProceduralSpaceSynth();
+
+    // -------------------------------------------------------------
+    // MUSIC PLAYER SYSTEM
+    // -------------------------------------------------------------
+    let bgMusic = new Audio();
+    bgMusic.loop = true;
+
+    function changeMusic() {
+      const selector = document.getElementById("bgm-selector");
+      if (!selector) return;
+      
+      const url = selector.value;
+      const wasPlaying = !bgMusic.paused && bgMusic.currentTime > 0;
+      
+      bgMusic.src = url;
+      bgMusic.load();
+      
+      if (wasPlaying) {
+        bgMusic.play().catch(e => console.log("Audio play prevented:", e));
+      }
+    }
+
+    function playMusic() {
+      if (!bgMusic.src || bgMusic.src === "" || bgMusic.src === location.href) {
+        const selector = document.getElementById("bgm-selector");
+        if (selector) {
+          bgMusic.src = selector.value;
+          bgMusic.load();
+        }
+      }
+      bgMusic.play().catch(e => console.log("Audio play prevented:", e));
+    }
+
+    function pauseMusic() {
+      bgMusic.pause();
+    }
+
+    // JARAK_FOTO: Menentukan jarak radius kumpulan foto melingkar dari bola tengah secara presisi dan simetris.
+    // Ubah angka ini untuk mengatur seberapa dekat/jauh semua foto mengitari bola tengah (contoh: 5.5 atau 15).
+    const JARAK_FOTO = 5.5;
+
+    // TINGGI_FOTO: Mengatur tinggi posisi vertikal (sumbu Y) semua kartu foto di atas piringan bintang agar melayang anggun.
+    // Ubah angka ini untuk mengatur tinggi layang kartu foto (contoh: 3 atau nilai lainnya).
+    const TINGGI_FOTO = 3.0;
+
+    // -------------------------------------------------------------
+    // THREE.JS AUTOMATED 10-CARD SCENE ARCHITECTURE
+    // -------------------------------------------------------------
+    let scene, camera, renderer, controls;
+    let stars, coreSphere;
+    let raycaster, mouse;
+    let clock = new THREE.Clock();
+
+    // Trail-related variables for the fading/glow trail effect
+    let trailScene, trailCamera, trailQuad;
+
+    // 10 Memory Cards Data Database Map with beautiful initial titles and prose strings
+    let cardsData = [
+      { id: 1, title: "Celestial Portal", desc: "Saat debu kosmik berhimpun di palung terdalam jagat raya, melahirkan sinar bintang muda yang memecah dinginnya malam.", quote: "Kita hanyalah debu kosmik yang kebetulan bermimpi.", mesh: null, texture: null, localUrl: null, defaultColor: '#e07ef0' },
+      { id: 2, title: "Golden Sol", desc: "Ketenangan warna jingga membasuh ufuk pasir, membawa binar kedamaian tersendiri bagi pengelana jiwa yang merindu keheningan purba.", quote: "Senja mengajarkan bahwa yang indah sering kali singkat.", mesh: null, texture: null, localUrl: null, defaultColor: '#ff9a4b' },
+      { id: 3, title: "Silent Forest", desc: "Lembah rimbun berselimut kabut fajar putih, membisikkan rahasia kuno pepohonan pinus rindang yang menemani kembara mimpi.", quote: "Dalam dingin dedaunan rimba, kutemukan damai abadi.", mesh: null, texture: null, localUrl: null, defaultColor: '#10b981' },
+      { id: 4, title: "Electric Tokyo", desc: "Pantulan pendar cahaya neon fuchsia di permukaan aspal basah jalan megapolitan, menangkap laju mimpi kera kota.", quote: "Malam tak pernah sepenuhnya sepi bagi pikiran yang menyalakan imajinasinya.", mesh: null, texture: null, localUrl: null, defaultColor: '#06e4d4' },
+      { id: 5, title: "Eternal Dawn", desc: "Lorong magis berpilar pendar aurora borealis, mengayunkan ingatan melompat bebas menembus garis fajar abadi.", quote: "Lompati ketakutanmu, maka bintang baru akan langsung terbentang.", mesh: null, texture: null, localUrl: null, defaultColor: '#bf86fc' },
+      { id: 6, title: "Secret Archive", desc: "Ratusan buku antik beraroma lembaran tua berdebu yang menyimpan rekam sejarah petualang pemimpi masa lampau secara abadi.", quote: "Membaca adalah dialog intim melintas ruang dan zaman.", mesh: null, texture: null, localUrl: null, defaultColor: '#f7d070' },
+      { id: 7, title: "Classic Vinyl", desc: "Putaran piringan hitam memutar melodi hangat lo-fi ambient redup, menyambut datangnya duka rindu manis kelmarin.", quote: "Melodi lampau selalu tahu jalan pulang menuju ingatan.", mesh: null, texture: null, localUrl: null, defaultColor: '#ec4899' },
+      { id: 8, title: "Midnight Fir", desc: "Cemara kokoh membisu di bawah lindungan rembulan purnama jernih, menyerap ketenangan dingin jagat kosmik malam.", quote: "Langit malam berbaik hati mendengar keluh kesah yang sunyi.", mesh: null, texture: null, localUrl: null, defaultColor: '#34d399' },
+      { id: 9, title: "Cozy Moonlight", desc: "Cangkir kopi hangat mengepul di tepi jendela berhiaskan rona gemerlap rasi bintang malam yang menenangkan batin keluh.", quote: "Mari tenangkan detak mimpi di sela malam berangin sejuk.", mesh: null, texture: null, localUrl: null, defaultColor: '#ee6cf5' },
+      { id: 10, title: "Sacred Aurora", desc: "Pendar hijau mistis menyergap kubah kelam langit kutub utara, mendatangkan kedamaian sejati yang menenangkan alam raya.", quote: "Keindahan sejati sering kali bersembunyi dalam kesunyian mutlak.", mesh: null, texture: null, localUrl: null, defaultColor: '#4f4cf2' }
+    ];
+
+    function initThree() {
+      const container = document.getElementById('canvas-container');
+      scene = new THREE.Scene();
+      scene.fog = new THREE.FogExp2(0x05030f, 0.012);
+
+      camera = new THREE.PerspectiveCamera(60, container.clientWidth / container.clientHeight, 0.1, 1000);
+      camera.position.set(0, 3.8, 8.2);
+
+      renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: "high-performance" });
+      renderer.setSize(container.clientWidth, container.clientHeight);
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+      renderer.toneMapping = THREE.ACESFilmicToneMapping;
+      renderer.toneMappingExposure = 1.05;
+      container.appendChild(renderer.domElement);
+
+      // Configure renderer not to auto-clear inside frame loops (crucial for fading trails)
+      renderer.autoClear = false;
+
+      // Initialize secondary ortho scene for rendering the semi-transparent fading trail overlay
+      trailScene = new THREE.Scene();
+      trailCamera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
+      const trailMaterial = new THREE.MeshBasicMaterial({
+        color: 0x05030f,      // Matches space background dark tone
+        transparent: true,
+        opacity: 0.12,        // Slightly transparent overlay for gorgeous silky smooth fade tails
+        depthWrite: false,
+        depthTest: false
+      });
+      const trailGeometry = new THREE.PlaneGeometry(2, 2);
+      trailQuad = new THREE.Mesh(trailGeometry, trailMaterial);
+      trailScene.add(trailQuad);
+
+      // Setup Orbit controls
+      controls = new THREE.OrbitControls(camera, renderer.domElement);
+      controls.enableDamping = true;
+      controls.dampingFactor = 0.05;
+      controls.zoomSpeed = 0.3;     // Melambatkan kecepatan zoom agar tidak pusing di HP/mobile
+      controls.enableZoom = true;   // Aktifkan fitur zoom (termasuk pinch-to-zoom untuk layar HP/mobile)
+      controls.minDistance = 0.5;   // Melonggarkan batas zoom-in (bisa sangat dekat ke bola tengah)
+      controls.maxDistance = 150.0; // Melonggarkan batas zoom-out (bisa melihat seluruh galaksi dari jauh/atas)
+
+      // Ambient softness light maps
+      const ambientLight = new THREE.AmbientLight(0xffffff, 0.85);
+      scene.add(ambientLight);
+
+      // Core direction lighting
+      const dirLight = new THREE.DirectionalLight(0xffffff, 0.5);
+      dirLight.position.set(5, 12, 6);
+      scene.add(dirLight);
+
+      // Cosmic background starfield particles (Highly dense & twinkling galaxy background)
+      const starsGeometry = new THREE.BufferGeometry();
+      const starsCount = 26000;
+      const starPositions = new Float32Array(starsCount * 3);
+      const starColors = new Float32Array(starsCount * 3);
+      const starSpeeds = new Float32Array(starsCount);
+      const starOffsets = new Float32Array(starsCount);
+
+      const starPalette = [
+        new THREE.Color(0xa78bfa), // subtle neon purple
+        new THREE.Color(0xc084fc), // lighter glowing violet
+        new THREE.Color(0x3b82f6), // deep royal blue
+        new THREE.Color(0x60a5fa), // bright aesthetic blue
+        new THREE.Color(0xffffff), // crisp white star
+        new THREE.Color(0xe0f2fe)  // icy white-blue
+      ];
+
+      for(let i = 0; i < starsCount; i++) {
+        // Distribute within a flat Saturn-like ring (radius 4.5 to 45.0) in the X-Z plane
+        const rMin = 4.5;
+        const rMax = 45.0;
+        // Distribute density to be higher closer to the inner sphere to look rich and fade out gradually
+        const r = rMin + (rMax - rMin) * Math.pow(Math.random(), 1.4);
+        const theta = Math.random() * Math.PI * 2.0;
+
+        const x = r * Math.cos(theta);
+        // Thin Y spread for a flat disc shape
+        const y = (Math.random() - 0.5) * 0.9;
+        const z = r * Math.sin(theta);
+
+        starPositions[i * 3] = x;
+        starPositions[i * 3 + 1] = y;
+        starPositions[i * 3 + 2] = z;
+
+        // Choose color from our custom galactic palette
+        const baseColor = starPalette[Math.floor(Math.random() * starPalette.length)];
+        
+        // Random variance to make the galaxy look natural
+        const rnd = 0.85 + Math.random() * 0.15;
+        starColors[i * 3] = baseColor.r * rnd;
+        starColors[i * 3 + 1] = baseColor.g * rnd;
+        starColors[i * 3 + 2] = baseColor.b * rnd;
+
+        // Random twinkle speeds and offsets
+        starSpeeds[i] = 0.4 + Math.random() * 2.6; 
+        starOffsets[i] = Math.random() * Math.PI * 2.0;
+      }
+      starsGeometry.setAttribute('position', new THREE.BufferAttribute(starPositions, 3));
+      starsGeometry.setAttribute('color', new THREE.BufferAttribute(starColors, 3));
+      starsGeometry.setAttribute('aSpeed', new THREE.BufferAttribute(starSpeeds, 1));
+      starsGeometry.setAttribute('aOffset', new THREE.BufferAttribute(starOffsets, 1));
+      
+      const starsMaterial = new THREE.ShaderMaterial({
+        uniforms: {
+          uTime: { value: 0.0 }
+        },
+        vertexShader: `
+          uniform float uTime;
+          attribute vec3 color;
+          attribute float aSpeed;
+          attribute float aOffset;
+          varying vec3 vColor;
+          varying float vTwinkle;
+          void main() {
+            vColor = color;
+            // Constant brightness - no blinking or flickering
+            vTwinkle = 0.95;
+            vec4 mvPosition = modelViewMatrix * vec4(position, 1.0);
+            
+            // Larger glowing stars scaling with depth
+            float baseSize = 10.0 + 18.0 * fract(aOffset * 50.0);
+            gl_PointSize = max(1.8, baseSize * (15.0 / -mvPosition.z));
+            gl_Position = projectionMatrix * mvPosition;
+          }
+        `,
+        fragmentShader: `
+          varying vec3 vColor;
+          varying float vTwinkle;
+          void main() {
+            float dist = length(gl_PointCoord - vec2(0.5));
+            if (dist > 0.5) discard;
+            // High quality soft glowing point with a bright center hot core
+            float intensity = smoothstep(0.5, 0.0, dist) * 0.4 + smoothstep(0.18, 0.0, dist) * 0.6;
+            gl_FragColor = vec4(vColor, intensity * vTwinkle * 0.9);
+          }
+        `,
+        transparent: true,
+        depthWrite: false,
+        blending: THREE.AdditiveBlending
+      });
+      stars = new THREE.Points(starsGeometry, starsMaterial);
+      scene.add(stars);
+
+      // Central Cosmic Particle Energy Sphere (Highly Dense, Vibrant, Neon Pulsating & Flashing)
+      const coreCount = 11000;
+      const corePositions = new Float32Array(coreCount * 3);
+      const coreColors = new Float32Array(coreCount * 3);
+      const coreSpeeds = new Float32Array(coreCount);
+      const coreOffsets = new Float32Array(coreCount);
+      const coreSizes = new Float32Array(coreCount);
+
+      const colorPalette = [
+        new THREE.Color(0xff00aa), // vibrant neon pink
+        new THREE.Color(0x00f3ff), // neon cyan/blue
+        new THREE.Color(0x9d00ff), // bright neon purple
+        new THREE.Color(0xff00d4), // bright magenta
+        new THREE.Color(0x1d4ed8)  // deep cyber blue
+      ];
+
+      for (let i = 0; i < coreCount; i++) {
+        // Distribute points spherically inside a solid volume
+        const u = Math.random();
+        const v = Math.random();
+        const theta = u * 2.0 * Math.PI;
+        const phi = Math.acos(2.0 * v - 1.0);
+        // Exponential distribution to concentrate more particles in the inner core,
+        // and let them trail outwards into space beautifully.
+        const r = 1.6 * Math.pow(Math.random(), 1.6); 
+        
+        corePositions[i * 3] = r * Math.sin(phi) * Math.cos(theta);
+        corePositions[i * 3 + 1] = r * Math.sin(phi) * Math.sin(theta);
+        corePositions[i * 3 + 2] = r * Math.cos(phi);
+
+        // Assign a color from our dazzling neon palette
+        const baseColor = colorPalette[Math.floor(Math.random() * colorPalette.length)];
+        coreColors[i * 3] = baseColor.r;
+        coreColors[i * 3 + 1] = baseColor.g;
+        coreColors[i * 3 + 2] = baseColor.b;
+
+        // Custom flashing/twinkling speed & offset parameters for each particle
+        coreSpeeds[i] = 1.8 + Math.random() * 5.5; 
+        coreOffsets[i] = Math.random() * Math.PI * 2.0; 
+        coreSizes[i] = 1.2 + Math.random() * 3.5; // moderated neon particle sizes
+      }
+
+      const coreGeometry = new THREE.BufferGeometry();
+      coreGeometry.setAttribute('position', new THREE.BufferAttribute(corePositions, 3));
+      coreGeometry.setAttribute('color', new THREE.BufferAttribute(coreColors, 3));
+      coreGeometry.setAttribute('aSpeed', new THREE.BufferAttribute(coreSpeeds, 1));
+      coreGeometry.setAttribute('aOffset', new THREE.BufferAttribute(coreOffsets, 1));
+      coreGeometry.setAttribute('aSize', new THREE.BufferAttribute(coreSizes, 1));
+
+      const coreMaterial = new THREE.ShaderMaterial({
+        uniforms: {
+          uTime: { value: 0.0 },
+          uThemeColor: { value: new THREE.Color(0x9333ea) }
+        },
+        vertexShader: `
+          uniform float uTime;
+          uniform vec3 uThemeColor;
+          attribute vec3 color;
+          attribute float aSpeed;
+          attribute float aOffset;
+          attribute float aSize;
+          varying vec3 vColor;
+          varying float vAlpha;
+          void main() {
+            float dist = length(position);
+            // Dynamic multi-wave pulse scale
+            float pulse = 1.0 + 0.15 * sin(uTime * 2.8 - dist * 1.8);
+            vec3 pulsedPosition = position * pulse;
+            
+            // Flashing frequency oscillation
+            float flash = 0.3 + 0.7 * sin(uTime * aSpeed + aOffset);
+            vAlpha = flash;
+
+            // Blend the neon point color with the dynamic user selected theme color
+            float blendFactor = 0.4 + 0.4 * sin(uTime * 1.3 + aOffset);
+            vColor = mix(color, uThemeColor, blendFactor);
+
+            vec4 mvPosition = modelViewMatrix * vec4(pulsedPosition, 1.0);
+            
+            // Perspective size attenuation with secondary pulse modifier (moderated to be crisp)
+            float sizeOsc = 1.0 + 0.3 * sin(uTime * 4.0 + aOffset);
+            gl_PointSize = aSize * (22.0 / -mvPosition.z) * sizeOsc;
+            gl_Position = projectionMatrix * mvPosition;
+          }
+        `,
+        fragmentShader: `
+          varying vec3 vColor;
+          varying float vAlpha;
+          void main() {
+            // Draw a high-quality soft circular neon glow point
+            float dist = length(gl_PointCoord - vec2(0.5));
+            if (dist > 0.5) discard;
+            float intensity = smoothstep(0.5, 0.05, dist);
+            // Moderated alpha multiplier (0.42) prevents overexposure accumulation when particles overlap
+            gl_FragColor = vec4(vColor, intensity * vAlpha * 0.42);
+          }
+        `,
+        transparent: true,
+        depthWrite: false,
+        blending: THREE.AdditiveBlending
+      });
+
+      coreSphere = new THREE.Points(coreGeometry, coreMaterial);
+      scene.add(coreSphere);
+
+      // Interactive 10 mini cards setup - size width 0.72, height 1.05
+      const cardGeo = new THREE.PlaneGeometry(0.72, 1.05);
+
+      cardsData.forEach((card, idx) => {
+        // Draw elegant mathematical mesh outline placeholders on beautiful individual fallbacks
+        const canvas = document.createElement('canvas');
+        canvas.width = 160; 
+        canvas.height = 230;
+        const ctx = canvas.getContext('2d');
+        const grad = ctx.createLinearGradient(0, 0, 0, 230);
+        grad.addColorStop(0, '#100c25'); 
+        grad.addColorStop(0.5, card.defaultColor + '35');
+        grad.addColorStop(1, '#020106');
+        ctx.fillStyle = grad; 
+        ctx.fillRect(0, 0, 160, 230);
+
+        // Grid lines overlay inside custom template
+        ctx.strokeStyle = 'rgba(255, 255, 255, 0.08)';
+        ctx.lineWidth = 1;
+        ctx.strokeRect(8, 8, 144, 214);
+        ctx.beginPath();
+        ctx.arc(80, 115, 55, 0, Math.PI * 2);
+        ctx.stroke();
+
+        ctx.fillStyle = '#ffffff'; 
+        ctx.font = 'bold 12px "Space Grotesk", sans-serif'; 
+        ctx.textAlign = 'center';
+        ctx.fillText(card.title, 80, 110);
+        
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.4)';
+        ctx.font = 'italic 8.5px "Inter", sans-serif';
+        ctx.fillText(`Empty Slot #${card.id}`, 80, 130);
+
+        card.texture = new THREE.CanvasTexture(canvas);
+        const mat = new THREE.MeshBasicMaterial({ 
+          map: card.texture, 
+          side: THREE.DoubleSide,
+          transparent: true,
+          opacity: 0.95
+        });
+
+        card.mesh = new THREE.Mesh(cardGeo, mat);
+        // Tag card index in userData easily for Raycasting checks
+        card.mesh.userData = { cardIndex: idx };
+        scene.add(card.mesh);
+      });
+
+      // Raycaster mouse initializers
+      raycaster = new THREE.Raycaster();
+      mouse = new THREE.Vector2();
+
+      // Interactions hooks
+      renderer.domElement.addEventListener('click', onSceneClick);
+      window.addEventListener('resize', onWindowResize);
+      animate();
+    }
+
+    function onWindowResize() {
+      const container = document.getElementById('canvas-container');
+      camera.aspect = container.clientWidth / container.clientHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(container.clientWidth, container.clientHeight);
+    }
+
+    // -------------------------------------------------------------
+    // METEOR SHOWER (LIGHTWEIGHT SHOOTING STARS)
+    // -------------------------------------------------------------
+    const meteors = [];
+    let lastMeteorSpawnTime = 0;
+
+    function spawnMeteors(elapsedTime) {
+      // Hujan meteor muncul secara berkala setiap 15 detik sekali
+      if (elapsedTime - lastMeteorSpawnTime > 15.0) {
+        lastMeteorSpawnTime = elapsedTime;
+        // Sekali muncul rilis sekaligus 3 sampai 5 meteor
+        const count = Math.floor(Math.random() * 3) + 3;
+        
+        for (let i = 0; i < count; i++) {
+          const length = 15.0 + Math.random() * 10.0;
+          // Meteor berbentuk garis tipis ringan (Cylinder)
+          const geom = new THREE.CylinderGeometry(0.04, 0.001, length, 5);
+          
+          const mat = new THREE.ShaderMaterial({
+            uniforms: {
+              uColorHead: { value: new THREE.Color(0xffffff) }, // Putih Susu Terang (Neon Bright White)
+              uColorTail: { value: new THREE.Color(0xa5f3fc) }  // Cyan / Biru Muda Gading
+            },
+            vertexShader: `
+              varying float vUvY;
+              void main() {
+                vUvY = uv.y; 
+                gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+              }
+            `,
+            fragmentShader: `
+              uniform vec3 uColorHead;
+              uniform vec3 uColorTail;
+              varying float vUvY;
+              void main() {
+                // vUvY = 1.0 adalah kepala meteor, 0.0 adalah ekor
+                float alpha = smoothstep(0.0, 1.0, vUvY); 
+                vec3 color = mix(uColorTail, uColorHead, pow(alpha, 3.0));
+                gl_FragColor = vec4(color, alpha * 0.9); // Ekor memudar hingga transparan
+              }
+            `,
+            transparent: true,
+            depthWrite: false,
+            blending: THREE.AdditiveBlending
+          });
+
+          const mesh = new THREE.Mesh(geom, mat);
+          
+          // Lahir di area langit atas secara acak
+          const startX = (Math.random() - 0.5) * 120;
+          const startY = 50 + Math.random() * 20;
+          const startZ = (Math.random() - 0.5) * 80 - 20;
+          
+          mesh.position.set(startX, startY, startZ);
+          
+          // Melesat sangat cepat diagonal searah
+          const speedX = - (40.0 + Math.random() * 30.0);
+          const speedY = - (50.0 + Math.random() * 35.0);
+          const speedZ = (Math.random() - 0.5) * 20.0;
+          
+          const velocity = new THREE.Vector3(speedX, speedY, speedZ);
+          
+          const up = new THREE.Vector3(0, 1, 0);
+          mesh.quaternion.setFromUnitVectors(up, velocity.clone().normalize());
+
+          scene.add(mesh);
+          meteors.push({ mesh, geom, mat, velocity });
+        }
+      }
+    }
+
+    function updateMeteors(delta) {
+      for (let i = meteors.length - 1; i >= 0; i--) {
+        const m = meteors[i];
+        m.mesh.position.add(m.velocity.clone().multiplyScalar(delta));
+        
+        // OTOMATIS dihapus total dari scene dan memori ketika melewati layar bawah
+        if (m.mesh.position.y < -40) {
+          scene.remove(m.mesh);
+          m.geom.dispose();
+          m.mat.dispose();
+          meteors.splice(i, 1);
+        }
+      }
+    }
+
+     // Animation frames loops
+    function animate() {
+      requestAnimationFrame(animate);
+      
+      const time = Date.now() * 0.0007;
+      const delta = clock.getDelta();
+      const elapsed = clock.getElapsedTime();
+
+      // Memicu sistem Hujan Meteor secara berkala tanpa mengganggu posisi galaksi
+      if (scene) {
+        spawnMeteors(elapsed);
+        updateMeteors(delta);
+      }
+      
+      if (coreSphere) {
+        coreSphere.rotation.y += 0.0035;
+        // Update shader time uniforms for particle calculations
+        if (coreSphere.material && coreSphere.material.uniforms && coreSphere.material.uniforms.uTime) {
+          coreSphere.material.uniforms.uTime.value = time;
+        }
+      }
+      if (stars) {
+        stars.rotation.y += 0.0003;
+        if (stars.material && stars.material.uniforms && stars.material.uniforms.uTime) {
+          stars.material.uniforms.uTime.value = time;
+        }
+      }
+
+      // Orbital placement logic for the 10 mini cards
+      cardsData.forEach((card, idx) => {
+        if (card.mesh) {
+          const angleOffset = (idx * (Math.PI * 2)) / 10;
+          // Susun 10 kartu foto melingkar secara presisi dan simetris menggunakan variabel JARAK_FOTO
+          const orbitRadius = JARAK_FOTO;
+
+          // Orbit math calculations around the central core sphere in a flat plane (X-Z plane)
+          card.mesh.position.x = Math.cos(time + angleOffset) * orbitRadius;
+          card.mesh.position.z = Math.sin(time + angleOffset) * orbitRadius;
+          
+          // Naikkan posisi vertikal (sumbu Y) kartu foto setinggi TINGGI_FOTO dengan efek floating bounce lembut
+          card.mesh.position.y = TINGGI_FOTO + Math.sin(time * 0.6 + idx * 1.1) * 0.05;
+          
+          // Rotate always viewing directly out towards the spectator coordinate
+          card.mesh.rotation.y = -(time + angleOffset) + Math.PI / 2;
+        }
+      });
+
+      // Project ambient label based on coordinates of the orbit center
+      const label = document.getElementById('space-label');
+      if (label && camera && coreSphere) {
+        project3dto2d(coreSphere.position, label);
+      }
+
+      controls.update();
+
+      // Render the trail scene overlay first to fade the previous frame's pixels slightly
+      if (trailScene && trailCamera) {
+        renderer.render(trailScene, trailCamera);
+      }
+      
+      // Clear depth buffer to prevent Z-buffer artifacts/clipping from previous frames
+      renderer.clearDepth();
+
+      // Render the new frame of cards and particles atop the faded trail background
+      renderer.render(scene, camera);
+    }
+
+    // Dynamic projection function to map 3D vectors onto absolute 2D overlays
+    const projVector = new THREE.Vector3();
+    function project3dto2d(position3d, htmlElement) {
+      projVector.copy(position3d);
+      projVector.y += 1.8; // Offset above central sphere
+      projVector.project(camera);
+
+      // Behind screen clipping
+      if (projVector.z > 1) {
+        htmlElement.classList.add('hidden');
+        return;
+      }
+
+      const x = (projVector.x * 0.5 + 0.5) * window.innerWidth;
+      const y = (projVector.y * -0.5 + 0.5) * window.innerHeight;
+
+      htmlElement.classList.remove('hidden');
+      htmlElement.style.transform = `translate(-50%, -100%) translate(${x}px, ${y}px)`;
+    }
+
+    // Scene raycasting clicks on Front / Back plate meshes
+    function onSceneClick(e) {
+      // Do not allow if currently customized menu is editing inside container
+      if (document.getElementById('customizer-panel').style.opacity === '1' && e.clientX < 330) return;
+      if (document.getElementById('welcome-screen').style.opacity === '1') return;
+
+      mouse.x = (e.clientX / window.innerWidth) * 2 - 1;
+      mouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
+
+      raycaster.setFromCamera(mouse, camera);
+
+      // Check intersect items
+      const intersects = raycaster.intersectObjects(scene.children);
+      const clickedCardObject = intersects.find(intersect => {
+        return cardsData.some(c => c.mesh === intersect.object);
+      });
+
+      if (clickedCardObject) {
+        const clickedMesh = clickedCardObject.object;
+        const matchedIndex = clickedMesh.userData.cardIndex;
+        if (matchedIndex !== undefined) {
+          openDetailModal(matchedIndex);
+        }
+      }
+    }
+
+    // Modal popup views for selected 3D Cards
+    function openDetailModal(index) {
+      const card = cardsData[index];
+      if (!card) return;
+
+      const modal = document.getElementById('photo-detail-modal');
+      const mImg = document.getElementById('modal-img');
+      const mCanvasContainer = document.getElementById('modal-canvas-fallback-container');
+      const mCanvas = document.getElementById('modal-drawn-canvas');
+
+      document.getElementById('modal-title').innerText = card.title;
+      document.getElementById('modal-desc').innerText = card.desc;
+      document.getElementById('modal-quote').innerText = `${card.quote}`;
+      document.getElementById('modal-id').innerText = card.id;
+
+      if (card.localUrl) {
+        // Show real image
+        mImg.src = card.localUrl;
+        mImg.classList.remove('hidden');
+        mCanvasContainer.classList.add('hidden');
+      } else {
+        // Fallback graphics canvas representation inside modal
+        mImg.classList.add('hidden');
+        mCanvasContainer.classList.remove('hidden');
+        
+        const mCtx = mCanvas.getContext('2d');
+        mCanvas.width = 300;
+        mCanvas.height = 400;
+        
+        const gradient = mCtx.createLinearGradient(0, 0, 0, 400);
+        gradient.addColorStop(0, '#110b2a');
+        gradient.addColorStop(0.5, card.defaultColor + '40');
+        gradient.addColorStop(1, '#05030f');
+        mCtx.fillStyle = gradient;
+        mCtx.fillRect(0, 0, 300, 400);
+
+        mCtx.strokeStyle = 'rgba(255, 255, 255, 0.15)';
+        mCtx.lineWidth = 1.5;
+        mCtx.strokeRect(10, 10, 280, 380);
+        
+        mCtx.beginPath();
+        mCtx.arc(150, 200, 75, 0, Math.PI * 2);
+        mCtx.stroke();
+
+        mCtx.fillStyle = '#ffffff';
+        mCtx.font = 'bold 16px "Playfair Display", serif';
+        mCtx.textAlign = 'center';
+        mCtx.fillText(card.title, 150, 195);
+        mCtx.fillStyle = 'rgba(255,255,255,0.4)';
+        mCtx.font = '10px "Inter", sans-serif';
+        mCtx.fillText('BELUM ADA FOTO DIUNGGAH', 150, 215);
+      }
+
+      // play high twinkle chime sounds effect
+      spaceSynth.playTwinkle();
+
+      // Show overlay with fancy transition effects
+      modal.classList.remove('pointer-events-none');
+      modal.style.opacity = '1';
+      modal.firstElementChild.nextElementSibling.classList.remove('scale-95');
+      modal.firstElementChild.nextElementSibling.classList.add('scale-100');
+    }
+
+    // Close detail modal dialog
+    window.closeDetailModal = function() {
+      const modal = document.getElementById('photo-detail-modal');
+      modal.style.opacity = '0';
+      modal.classList.add('pointer-events-none');
+      modal.firstElementChild.nextElementSibling.classList.add('scale-95');
+      modal.firstElementChild.nextElementSibling.classList.remove('scale-100');
+    };
+
+    // Entrance sequence triggers
+    window.enterWorld = function() {
+      document.getElementById('welcome-screen').classList.add('hidden');
+      document.getElementById('question-screen').classList.remove('hidden');
+    };
+
+    // Unlock cosmic universe layout viewports
+    window.showUniverse = function() {
+      document.getElementById('question-screen').classList.add('hidden');
+      document.getElementById('center-title-container').classList.remove('hidden');
+      document.getElementById('customizer-toggle').classList.remove('hidden');
+
+      // Boot up the 3D Engine viewports easily
+      initThree();
+      
+      // Load selected default card info values directly
+      updateSelectedCardFields();
+
+      showToast("Selamat datang everyone Di Galaxy 3D nya Dew 🪐");
+    };
+
+    // Show or hide customized menu card drawer
+    window.toggleCustomizer = function(show) {
+      const p = document.getElementById('customizer-panel');
+      if (show) {
+        p.classList.remove('pointer-events-none', 'opacity-0');
+        p.style.opacity = '1';
+        p.classList.add('translate-x-0');
+      } else {
+        p.classList.add('pointer-events-none', 'opacity-0');
+        p.style.opacity = '0';
+        p.classList.remove('translate-x-0');
+      }
+    };
+
+    // Update form field variables when card selector changes inside dropdown
+    window.updateSelectedCardFields = function() {
+      const idx = parseInt(document.getElementById('card-selector').value);
+      const card = cardsData[idx];
+      if (!card) return;
+
+      document.getElementById('card-title-input').value = card.title;
+      document.getElementById('card-desc').value = card.desc;
+      document.getElementById('card-quote-input').value = card.quote;
+      document.getElementById('upload-label').innerText = `Pilih Foto untuk Kartu ${idx + 1}:`;
+      
+      // Update preview upload text
+      if (card.localUrl) {
+        document.getElementById('file-name-display').innerText = `Tersimpan: Slotted Photo`;
+      } else {
+        document.getElementById('file-name-display').innerText = `Belum ada foto dipilih`;
+      }
+    };
+
+    // Capturing files uploads from local phone/desktop device directly (without external urls)
+    window.handleFileSelect = function(event) {
+      const file = event.target.files[0];
+      const idx = parseInt(document.getElementById('card-selector').value);
+      if (file) {
+        document.getElementById('file-name-display').innerText = `Siap pasang: ${file.name}`;
+        
+        // Convert to immediate Browser Blob url to map inside Three.js
+        cardsData[idx].localUrl = URL.createObjectURL(file);
+      }
+    };
+
+    // Apply customizations smoothly
+    window.applyUpdates = function() {
+      // Modify Center Header text from custom input values
+      const newBannerText = document.getElementById('banner-text-input').value;
+      document.getElementById('center-title').innerText = newBannerText;
+
+      // Color picker modifications inside core system particles
+      const chosenColorHex = document.getElementById('theme-color-input').value;
+      if (coreSphere) {
+        if (coreSphere.material.uniforms && coreSphere.material.uniforms.uThemeColor) {
+          coreSphere.material.uniforms.uThemeColor.value.set(chosenColorHex);
+        } else if (coreSphere.material.color) {
+          coreSphere.material.color.set(chosenColorHex);
+        }
+      }
+
+      const idx = parseInt(document.getElementById('card-selector').value);
+      const title = document.getElementById('card-title-input').value;
+      const desc = document.getElementById('card-desc').value;
+      const quote = document.getElementById('card-quote-input').value;
+
+      // Save fields inside memory deck data
+      cardsData[idx].title = title;
+      cardsData[idx].desc = desc;
+      cardsData[idx].quote = quote;
+
+      const loader = new THREE.TextureLoader();
+
+      if (cardsData[idx].localUrl) {
+        loader.load(cardsData[idx].localUrl, function(texture) {
+          texture.minFilter = THREE.LinearMipmapLinearFilter;
+          cardsData[idx].mesh.material.map = texture;
+          cardsData[idx].mesh.material.needsUpdate = true;
+          
+          showToast(`Sukses memperbarui Kartu ${idx + 1}: "${title}" ✨`);
+          toggleCustomizer(false);
+          spaceSynth.playTwinkle();
+        });
+      } else {
+        // Redraw fallback texture to map title change in 3D too
+        const canvas = document.createElement('canvas');
+        canvas.width = 160; 
+        canvas.height = 230;
+        const ctx = canvas.getContext('2d');
+        const grad = ctx.createLinearGradient(0, 0, 0, 230);
+        grad.addColorStop(0, '#100c25'); 
+        grad.addColorStop(0.5, cardsData[idx].defaultColor + '35');
+        grad.addColorStop(1, '#020106');
+        ctx.fillStyle = grad; 
+        ctx.fillRect(0, 0, 160, 230);
+
+        ctx.strokeStyle = 'rgba(255, 255, 255, 0.08)';
+        ctx.lineWidth = 1;
+        ctx.strokeRect(8, 8, 144, 214);
+        ctx.beginPath();
+        ctx.arc(80, 115, 55, 0, Math.PI * 2);
+        ctx.stroke();
+
+        ctx.fillStyle = '#ffffff'; 
+        ctx.font = 'bold 12px "Playfair Display", serif'; 
+        ctx.textAlign = 'center';
+        ctx.fillText(title, 80, 110);
+        
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.4)';
+        ctx.font = 'italic 8.5px "Inter", sans-serif';
+        ctx.fillText(`Empty Slot #${cardsData[idx].id}`, 80, 130);
+
+        const newTex = new THREE.CanvasTexture(canvas);
+        cardsData[idx].mesh.material.map = newTex;
+        cardsData[idx].mesh.material.needsUpdate = true;
+
+        showToast(`Sukses memperbarui judul Kartu ${idx + 1}: "${title}"!`);
+        toggleCustomizer(false);
+        spaceSynth.playTwinkle();
+      }
+    };
+
+    // -------------------------------------------------------------
+    // ADDITIONAL AUDIO PLAYBACK & MODAL ATTACHMENT HOOKS
+    // -------------------------------------------------------------
+    // Fullscreen Toggle Hook
+    document.getElementById('toggle-fullscreen-btn').onclick = () => {
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen()
+          .then(() => {
+            document.getElementById('fullscreen-icon').setAttribute('data-lucide', 'minimize-2');
+            lucide.createIcons();
+            showToast("Masuk ke mode Layar Penuh! 🌌");
+          })
+          .catch(err => {
+            console.error(`Gagal masuk fullscreen: ${err.message}`);
+            showToast("Web browser tidak mendukung atau menolak Fullscreen.");
+          });
+      } else {
+        document.exitFullscreen()
+          .then(() => {
+            document.getElementById('fullscreen-icon').setAttribute('data-lucide', 'maximize');
+            lucide.createIcons();
+            showToast("Keluar dari mode Layar Penuh.");
+          });
+      }
+    };
+
+    // Watch for esc-key or device-terminated fullscreen to keep icon synchronized
+    document.addEventListener('fullscreenchange', () => {
+      const icon = document.getElementById('fullscreen-icon');
+      if (document.fullscreenElement) {
+        icon.setAttribute('data-lucide', 'minimize-2');
+      } else {
+        icon.setAttribute('data-lucide', 'maximize');
+      }
+      lucide.createIcons();
+    });
+
+    // Custom Toast feedback printer
+    function showToast(text) {
+      const toast = document.getElementById('intro-toast');
+      document.getElementById('toast-text').innerText = text;
+      toast.classList.remove('opacity-0', 'pointer-events-none', 'translate-y-3');
+      toast.classList.add('opacity-100', 'translate-y-0');
+
+      setTimeout(() => {
+        toast.classList.add('opacity-0', 'pointer-events-none', 'translate-y-3');
+        toast.classList.remove('opacity-100', 'translate-y-0');
+      }, 3500);
+    }
+
+    // Bind initial vector graphics indicators
+    lucide.createIcons();
+  </script>
+</body>
+</html>
